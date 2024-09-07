@@ -1,0 +1,132 @@
+<mvc:View
+    controllerName="esegura.demonorthwind1.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <Panel
+                id="panelProducts"
+                expandable="true"
+                headerText="Products Northwind"
+                width="auto"
+                class="sapUiResponsiveMargin"
+            >
+                <content>
+                    <f:SimpleForm
+                        id="_IDGenSimpleForm1"
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanM="12"
+                        labelSpanL="12"
+                        labelSpanXL="12"
+                        emptySpanL="6"
+                        emptySpanM="6"
+                    >
+                        <f:content>
+                            <Label
+                                id="_IDGenLabel3"
+                                text="Category"
+                                labelFor="txtCategory"
+                                design="Bold"
+                            />
+                            <Input
+                                id="txtCategory"
+                                type="Text"
+                                showValueHelp="true"
+                                valueHelpRequest="onMatchcodeCategories"
+                            />
+                        </f:content>
+                    </f:SimpleForm>
+                    <List
+                        id="products2"
+                        headerText="Products"
+                        class="sapUiResponsiveMargin"
+                        width="auto"
+                        items="{oDataProducts>/}"
+                    >
+                        <headerToolbar>
+                            <Toolbar id="_IDGenToolbar2">
+                                <Title
+                                    id="_IDGenTitle"
+                                    text="Products"
+                                />
+                                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                            </Toolbar>
+                        </headerToolbar>
+                        <items>
+                            <ObjectListItem
+                                id="_IDGenObjectListItem1"
+                                title="{oDataProducts>Quantity} x {oDataProducts>ProductName}"
+                                number="{ parts : [ { path : 'oDataProducts>ExtendedPrice' },
+                                                        { path : 'currency>/eur' } ] ,
+                                            type: 'sap.ui.model.type.Currency',
+                                            formatOptions: {
+                                                showMeasure : false
+                                            } }"
+                                numberUnit="{currency>/usd}"
+                                numberState="{= ${oDataProducts>ExtendedPrice} > 9 ? 'Success' : 'Error' }"
+                            />
+                        </items>
+                    </List>
+                </content>
+            </Panel>
+            <Panel
+                id="panelInvoices"
+                expandable="true"
+                headerText="Invoices Northwind"
+                width="auto"
+                class="sapUiResponsiveMargin"
+            >
+                <content>
+                    <List
+                        id="invoiceList"
+                        headerText="{i18n>invoiceListTitle}"
+                        class="sapUiResponsiveMargin"
+                        width="auto"
+                        items="{oDataInvoices>/}"
+                    >
+                        <headerToolbar>
+                            <Toolbar id="_IDGenToolbar">
+                                <Title
+                                    id="_IDGenTitle1"
+                                    text="{i18n>invoiceListTitle}"
+                                />
+                                <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                                <SearchField
+                                    id="_IDGenSearchField"
+                                    width="50%"
+                                    search=".onFilterInvoices"
+                                />
+                            </Toolbar>
+                        </headerToolbar>
+                        <items>
+                            <ObjectListItem
+                                id="_IDGenObjectListItem"
+                                title="{oDataInvoices>Quantity} x {oDataInvoices>ProductName}"
+                                number="{ parts : [ { path : 'oDataInvoices>ExtendedPrice' },
+                                                        { path : 'currency>/eur' } ] ,
+                                            type: 'sap.ui.model.type.Currency',
+                                            formatOptions: {
+                                                showMeasure : false
+                                            } }"
+                                numberUnit="{currency>/usd}"
+                                numberState="{= ${oDataInvoices>ExtendedPrice} > 9 ? 'Success' : 'Error' }"
+                            >
+                                <!-- <firstStatus>
+                            <ObjectStatus text="{ path : 'invoices>Status',
+                                                formatter: '.formatterCust.invoiceStatus'}"></ObjectStatus>
+                        </firstStatus> -->
+                            </ObjectListItem>
+                        </items>
+                    </List>
+                </content>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>
